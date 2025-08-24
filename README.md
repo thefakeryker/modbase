@@ -14,7 +14,7 @@ A optimized fork of ioquake3 for creating Quake III Arena mods.
 * Modified the code to your wildiest dreams
 * Either use the [optional scripts](https://github.com/thefakeryker/modbase/tree/scripts) or use CMake to compile your project     
 Example:       
-`cmake -DCMAKE_BUILD_TYPE="Release" -DQVM_TOOLS_PATH="/Users/yourname/Downloads/tools/" -S ../ -B "./build/"`     
+`cmake -DCMAKE_BUILD_TYPE="Release" -DQVM_TOOLS_PATH="/Users/yourname/Downloads/tools/" -S ./ -B "./build/"`     
 `cmake --build "./build"`
 * Archive the dll or qvm files into a pk3 file
 * Copy that pk3 into a folder in your quake3 directory
