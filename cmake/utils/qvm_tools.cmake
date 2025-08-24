@@ -6,7 +6,7 @@ if(NOT BUILD_GAME_QVMS)
 endif()
 
 # Require user to set QVM_TOOLS_PATH
-if(NOT DEFINED QVM_TOOLS_PATH OR QVM_TOOLS_PATH STREQUAL "OFF")
+if(NOT DEFINED QVM_TOOLS_PATH OR QVM_TOOLS_PATH STREQUAL "" OR QVM_TOOLS_PATH STREQUAL "OFF")
     message(FATAL_ERROR "QVM_TOOLS_PATH must be set to the directory containing your Quake Virtual Machine tools.")
 endif()
 
