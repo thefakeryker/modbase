@@ -9,7 +9,7 @@ A optimized fork of ioquake3 for creating Quake III Arena mods.
 * Useless miscellaneous files and other bloat has been removed aswell
 <br /><br />
 ## How to use
-* [Clone thefakeryker/modbase.git]([https://github.com/thefakeryker/modbase](https://github.com/thefakeryker/modbase/archive/refs/heads/main.zip)
+* [Clone thefakeryker/modbase.git](https://github.com/thefakeryker/modbase/archive/refs/heads/main.zip)
 * Change the *baseq3* game name in `cmake/identity.cmake`, Most q3 engines will refuse to run if you keep it the same.
 * Modified the code to your wildiest dreams
 * Either use the [optional scripts](https://github.com/thefakeryker/modbase/tree/scripts) or use CMake to compile your project     
