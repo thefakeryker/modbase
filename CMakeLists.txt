@@ -9,16 +9,6 @@ option(BUILD_GAME_LIBRARIES "Build game module libraries" ON)
 option(BUILD_GAME_QVMS "Build game module qvms" ON)
 
 option(USE_ARCHLESS_FILENAMES "Don't include the architecture in binary filenames" OFF)
-option(USE_VOIP "Voice chat" ON)
-option(USE_MUMBLE "Mumble support" ON)
-
-option(USE_INTERNAL_LIBS "Use internally packaged libraries" ON)
-option(USE_INTERNAL_SDL "Use internal SDL binary (if available)" ${USE_INTERNAL_LIBS})
-option(USE_INTERNAL_ZLIB "Use internal copy of zlib" ${USE_INTERNAL_LIBS})
-option(USE_INTERNAL_JPEG "Use internal copy of libjpeg" ${USE_INTERNAL_LIBS})
-option(USE_INTERNAL_OGG "Use internal copy of ogg" ${USE_INTERNAL_LIBS})
-option(USE_INTERNAL_VORBIS "Use internal copy of vorbis" ${USE_INTERNAL_LIBS})
-option(USE_INTERNAL_OPUS "Use internal copy of opus" ${USE_INTERNAL_LIBS})
 
 # Release build by default, set externally if you want something else
 if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
@@ -55,6 +45,5 @@ set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/code)
 
 include(compilers/all)
 include(platforms/all)
-include(libraries/all)
 
 include(basegame)
