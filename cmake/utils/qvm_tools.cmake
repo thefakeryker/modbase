@@ -1,31 +1,21 @@
+
 include_guard(GLOBAL)
 
 if(NOT BUILD_GAME_QVMS)
     return()
 endif()
 
-include(ExternalProject)
-
-set(TOOLS_DIR ${CMAKE_BINARY_DIR}/tools)
+# Require user to set QVM_TOOLS_PATH
+if(NOT DEFINED QVM_TOOLS_PATH OR QVM_TOOLS_PATH STREQUAL "OFF")
+    message(FATAL_ERROR "QVM_TOOLS_PATH must be set to the directory containing your Quake Virtual Machine tools.")
+endif()
 
 if(CMAKE_BUILD_TYPE)
     set(BUILD_TYPE_ARG -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
 endif()
 
-set(Q3LCC ${TOOLS_DIR}/$<CONFIG>/q3lcc)
-set(Q3ASM ${TOOLS_DIR}/$<CONFIG>/q3asm)
-
-ExternalProject_Add(qvm_tools
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}/cmake/tools
-    BINARY_DIR ${TOOLS_DIR}
-    CMAKE_ARGS
-        -DSOURCE_DIR=${SOURCE_DIR}
-        -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
-        -DCMAKE_MINIMUM_REQUIRED_VERSION=${CMAKE_MINIMUM_REQUIRED_VERSION}
-        ${BUILD_TYPE_ARG}
-    BUILD_ALWAYS TRUE
-    BUILD_BYPRODUCTS ${Q3LCC} ${Q3ASM}
-    INSTALL_COMMAND "")
+set(Q3LCC ${QVM_TOOLS_PATH}/q3lcc)
+set(Q3ASM ${QVM_TOOLS_PATH}/q3asm)
 
 function(add_qvm MODULE_NAME)
     list(REMOVE_AT ARGV 0)
@@ -64,20 +54,22 @@ function(add_qvm MODULE_NAME)
         set(ASM_FILE ${QVM_ASM_DIR}/${BASE_FILE}.asm)
         string(REPLACE "${CMAKE_BINARY_DIR}/" "" ASM_FILE_COMMENT ${ASM_FILE})
 
+
         add_custom_command(
             OUTPUT ${ASM_FILE}
             COMMAND ${Q3LCC} ${LCC_FLAGS} -o ${ASM_FILE} ${SOURCE}
-            DEPENDS ${SOURCE} qvm_tools ${Q3LCC}
+            DEPENDS ${SOURCE} ${Q3LCC}
             COMMENT "Building C object ${ASM_FILE_COMMENT}")
 
         list(APPEND ASM_FILES ${ASM_FILE})
     endforeach()
 
     string(REPLACE "${CMAKE_BINARY_DIR}/" "" QVM_FILE_COMMENT ${QVM_FILE})
+
     add_custom_command(
         OUTPUT ${QVM_FILE}
         COMMAND ${Q3ASM} -o ${QVM_FILE} ${ASM_FILES}
-        DEPENDS ${ASM_FILES} qvm_tools ${Q3ASM}
+        DEPENDS ${ASM_FILES} ${Q3ASM}
         COMMENT "Linking C QVM library ${QVM_FILE_COMMENT}")
 
     string(REGEX REPLACE "[^A-Za-z0-9]" "_" TARGET_NAME ${MODULE_NAME})
