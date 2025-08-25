@@ -8,7 +8,7 @@ project(${PROJECT_NAME} VERSION ${PROJECT_VERSION} LANGUAGES C)
 option("QVM_TOOLS_PATH" "Paths to your Quake Virtual Machine compiling tools" "")
 
 option(BUILD_GAME_LIBRARIES "Build game module libraries" ON)
-option(BUILD_GAME_QVMS "Build game module qvms" ON)
+option(BUILD_GAME_QVMS "Build game module qvms" OFF)
 
 option(USE_ARCHLESS_FILENAMES "Don't include the architecture in binary filenames" OFF)
 
